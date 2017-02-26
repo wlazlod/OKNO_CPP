@@ -1,0 +1,217 @@
+\chapter{Proces projektowania}
+
+\section{Sprawdzenie zachowania symulowanego obiektu bez regulatora dyskretnego}
+\subsection{Analiza transmitancji obiektu}
+
+Transmitancja ma postaæ:
+\begin{center}
+\( G(s)= \frac{150}{s(1.12s+1)(0.224s+1)}  \) \\
+\end{center}
+Obiekt mo¿na zatem przedstawiæ w postaci superpozycji cz³onu proporcjonalnego, cz³onu ca³kuj¹cego idealnego oraz cz³onu inercyjnego 2 rzêdu (b¹dŸ dwóch cz³onów inercyjnych pierwszego rzêdu).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{foto/Transmitancja.png}
+\caption{Wizualizacja dekompozycji obiektu o transmitancji G }
+\label{fig:SCHEMAT}
+\end{figure} 
+
+\subsection{Dok³adna transmitancja dyskretna obiektu}
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{foto/HGz.png}
+\caption{Obiekt wraz z uk³adami DAC i ADC}
+\label{fig:HGz}
+\end{figure} 
+Korzystaj¹c z wzoru:
+\begin{center}
+\( HG(z)= \frac{z-1}{z}\mathcal{Z}(\mathcal{L}^{-1} (\frac{G(s)}{s}))= \frac{z-1}{z}\mathcal{D}(\frac{G(s)}{s})\) \\
+\end{center}
+dla czasu próbkowania \(T_p =0.04 \) otrzymano dok³adn¹ transmitancjê dyskretn¹ obiektu:
+\begin{center}
+\( HG(z)= \frac{6.344 \cdot 10^{-6} z^2 +  2.524 \cdot 10^{-5} z + 6.276 \cdot 10^{-6}}{z^3 - 2.979 z^2 + 2.958 z - 0.9788} \) \\
+\end{center}
+
+\subsection{Transmitancja widmowa}
+Korzystaj¹c z zale¿noœci:
+\begin{center}
+\( HG^*(j\omega )=HG(e^{T_pj\omega}) \)
+\end{center}
+obliczono transmitancjê widmow¹:
+\begin{center}
+\( HG^*(j\omega )= \frac{6.344 \cdot 10^{-6} (e^{0.041j \omega})^2 +  2.524 \cdot 10^{-5} e^{0.041j \omega} + 6.276 \cdot 10^{-6}}{(e^{0.041j \omega})^3 - 2.979 (e^{0.041j \omega})^2 + 2.958 e^{0.041j \omega} - 0.9788} \)
+\end{center}
+
+\subsection{Transmitancja pseudoczêstotliwoœciowa}
+Transmitancja pseudoczêstotliwoœciowa ma postaæ:
+\begin{center}
+\( HG^{w*}(j\nu)= \frac{1.594 \cdot 10^{-6} j\nu^3 -  8.057 \cdot 10^{-4} j\nu^2 - 1.191 j\nu + 597.9}{j\nu^3 + 5.357 j\nu^2 + 3.986 j\nu}\) \\
+\end{center}
+
+Przybli¿enie transmitancji pseudoczêstotliwoœciowej:
+\begin{center}
+\( HG^{w*}_{est}(j\nu)= G(j\nu)(1-\frac{T_p}{2}j\nu)= \frac{- 0.3 j\nu + 150}{0.2509 j\nu + 1.344 j\nu+ s} \) \\
+\end{center}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/Transfer_functions.png}
+\caption{Charakterystyka czêstotliwoœciowa transmitancji HGw*, HGw*est, HG* oraz G}
+\label{fig:Bode}
+\end{figure} 
+
+
+\section{Projektowanie regulatora}
+\subsection{Dobór wzmocnienia regulatora}
+
+Pierwszym krokiem zbli¿aj¹cym do obliczenia wzmocnienia by³o wyznaczenie obszaru zabronionego.
+Korzystaj¹c z definicji wymagañ: \\
+\begin{center}
+Maksymalna prêdkoœæ: \( r_1=1 \) \\
+Maksymalne przyspieszenie: \( r_2=0.8 \) \\
+Dok³adnoœæ: \( \varepsilon=0.005 \) \\
+\end{center}
+obliczam wielkoœci \( \omega _a \) oraz \( L_gr \): \\
+\begin{center}
+\( \omega_a = \frac{r_2}{r_1}=0.8\) \\
+\( L \ge \frac{1}{\epsilon} \frac{(r_1)^2}{r_2}\frac{1.16\cdot 4}{\pi}=369.2 \)
+\end{center}
+Na podstawie tych wartoœci wykreœlono wykres obszaru zabronionego. Naniesiono na niego równie¿ wykres transmitancji \( HG^{w*}(j\nu) \). 
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/HGW_lag.png}
+\caption{Obszar zabroniony}
+\label{fig:HGW_lag}
+\end{figure} 
+Z analizy wykresu wynika, ¿e minimalne wzmocnienie, jakie powinien wprowadzaæ regulator wynosi  \( k_r=3 \)
+
+\subsection{Dobór nowej pulsacji granicznej}
+Naturalna pseudopulsacja graniczna obiektu:  \( \nu _{gob}=8.0395 \). \\
+Ograniczenie wynikaj¹ce z wprowadzenia opóŸnienia: \( \nu _g < 110 \). \\
+Przyjêto \( \nu _g = 80 \).\\
+Z faktu przyjêcia, i¿ \( M_p = 1.4 \),
+wynika, ¿e: \\ \( \nu _1 \le \nu _g \frac{M_p-1}{M_p}= 22.8571; \nu _2 \ge \nu _g \frac{M_p+1}{M_p}= 137.1429\) \\
+Na podstawie przeprowadzonych symulacji dzia³ania regulatora, dobrano \( \nu _1=8,  \nu_2=400 \).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/L_Bode.png}
+\caption{Wykres Bodego dla obiektu z regulatorem}
+\label{fig:HGW_lag}
+\end{figure} 
+
+\section{Regulator}
+\subsection{Transmitancja}
+
+Transmitancja regulatora wynosi:\\ 
+\begin{center}
+\( R(j \nu)=\frac{0.04664 j \nu^2 + 0.7482 j \nu + 3}{6.25e-06 j \nu^2 + 0.005 j \nu + 1} \)
+\end{center}
+Transmitancja impulsowa regulatora wynosi:\\ 
+\begin{center}
+\( R(z)=\frac{2378 z^2 - 4606 z + 2230}{z^3-0.2222 z^2 + 0.01235 z}\)
+\end{center}
+Równanie ró¿nicowe:\\
+\begin{center}
+\(u(k)=0.2222u(k-1)-0.01235u(k-2) + (2378e(k-1) - 4606e(k-2) + 2230)e(k-3)\)
+\end{center}
+
+\subsection{Stabilnoœæ}
+
+W celu zbadania stabilnoœci uk³adu wykonano wykres Nyquista oraz zbadano uk³ad poleceniem \textit{gain}.
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/L_nyq.png}
+\caption{Wykres Nyquista petli otwartej}
+\label{fig:HGW_lag}
+\end{figure} 
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/L_stab.png}
+\caption{Wykres Bodego petli otwartej}
+\label{fig:HGW_lag}
+\end{figure} 
+
+\subsection{Funkcje wra¿liwoœci}
+
+W celu sprawdzenia reakcji uk³adu na spektrum czêstotliwoœci sygna³u wymuszenia
+sporz¹dzono wykresy:
+\begin{itemize}
+	\item funkcji wra¿liwoœci \( S=\frac{1}{1 + GR}\) oraz dope³niaj¹cej funkcji wra¿liwoœci \( T=\frac{GR}{1 + GR}\)
+	\item funkcji wra¿liwoœci na sterowanie \( Q=\frac{R}{1 + GR}\)
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/ST.png}
+\caption{Wykres funkcji wra¿liwoœci oraz dope³niaj¹cej funkcji wra¿liwoœci}
+\label{fig:HGW_lag}
+\end{figure} 
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/Q.png}
+\caption{Wykres funkcji wra¿liwoœci na sterowanie}
+\label{fig:HGW_lag}
+\end{figure} 
+
+\section{Odpowiedzi na zadane sygna³y}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/Simulink.png}
+\caption{Schemat uk³adu}
+\label{fig:HGW_lag}
+\end{figure} 
+
+\subsection{OdpowiedŸ uk³adu na skok jednostkowy}
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/Step.png}
+\caption{OdpowiedŸ uk³adu na skok jednostkowy}
+\label{fig:HGW_lag}
+\end{figure} 
+
+\subsection{OdpowiedŸ uk³adu na skok o zadanej amplitudzie }
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/Step_R.png}
+\caption{OdpowiedŸ uk³adu na skok o zadanej amplitudzie}
+\label{fig:HGW_lag}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/Step_R2.png}
+\caption{OdpowiedŸ uk³adu na skok o zadanej amplitudzie}
+\label{fig:HGW_lag}
+\end{figure} 
+
+\subsection{OdpowiedŸ uk³adu na wymuszenie sinusoidalne }
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/Sinus.png}
+\caption{OdpowiedŸ uk³adu na wymuszenie sinusoidalne}
+\label{fig:HGW_lag}
+\end{figure} 
+
+\subsection{OdpowiedŸ uk³adu na wymuszenie trapezowe }
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/Trapezoidal.png}
+\caption{OdpowiedŸ uk³adu na wymuszenie trapezowe }
+\label{fig:HGW_lag}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/Control.png}
+\caption{Sterowanie uk³adu przy wymuszeniu trapezowym }
+\label{fig:HGW_lag}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16 cm]{photo/Error.png}
+\caption{Uchyb uk³adu przy wymuszeniu trapezowym }
+\label{fig:HGW_lag}
+\end{figure} 

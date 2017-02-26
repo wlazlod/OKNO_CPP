@@ -1,0 +1,22 @@
+\contentsline {chapter}{\numberline {1}Zadanie}{2}{chapter.1}
+\contentsline {section}{\numberline {1.1}Tre\'s\'c projektu}{2}{section.1.1}
+\contentsline {section}{\numberline {1.2}Dane do projektu}{3}{section.1.2}
+\contentsline {chapter}{\numberline {2}Proces projektowania}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}Sprawdzenie zachowania symulowanego obiektu bez regulatora dyskretnego}{4}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Analiza transmitancji obiektu}{4}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Dok\IeC {\l }adna transmitancja dyskretna obiektu}{5}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Transmitancja widmowa}{5}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Transmitancja pseudocz\k estotliwo\'sciowa}{5}{subsection.2.1.4}
+\contentsline {section}{\numberline {2.2}Projektowanie regulatora}{6}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Dob\'or wzmocnienia regulatora}{6}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Dob\'or nowej pulsacji granicznej}{8}{subsection.2.2.2}
+\contentsline {section}{\numberline {2.3}Regulator}{9}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Transmitancja}{9}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Stabilno\'s\'c}{9}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Funkcje wra\.zliwo\'sci}{11}{subsection.2.3.3}
+\contentsline {section}{\numberline {2.4}Odpowiedzi na zadane sygna\IeC {\l }y}{14}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Odpowied\'z uk\IeC {\l }adu na skok jednostkowy}{15}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Odpowied\'z uk\IeC {\l }adu na skok o zadanej amplitudzie }{16}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}Odpowied\'z uk\IeC {\l }adu na wymuszenie sinusoidalne }{18}{subsection.2.4.3}
+\contentsline {subsection}{\numberline {2.4.4}Odpowied\'z uk\IeC {\l }adu na wymuszenie trapezowe }{19}{subsection.2.4.4}
+\contentsline {chapter}{\numberline {3}Wnioski}{22}{chapter.3}
